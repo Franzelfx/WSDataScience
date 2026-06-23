@@ -1,0 +1,6 @@
+# Kern-Workshop (GridWorld + Q-Learning / SARSA)
+numpy
+matplotlib
+
+# Optional: Bonus-Aufgabe Deep-Q-Network (DQN) auf CartPole
+# pip install gymnasium tensorflow

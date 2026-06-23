@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtuelle Umgebungen
+venv/
+.venv/
+env/
+
+# Generierte Workshop-Ausgaben
+plots/
+saved_model/
+*.keras
+*.h5
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
