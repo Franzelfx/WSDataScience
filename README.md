@@ -11,7 +11,8 @@ lauffähigem Starter-Code mit zentralem `CONFIG`-Block zum Experimentieren.
 | [`explorative_datenanalyse/`](explorative_datenanalyse/) | Explorative Datenanalyse (EDA)   | pandas, Visualisierung          |
 | [`image_classification/`](iamge_classification/)  | Bildklassifikation                     | CNN (TensorFlow/Keras)          |
 | [`autoencoder/`](autoencoder/)                    | Unüberwachtes Lernen / Anomalien       | Autoencoder (TensorFlow/Keras)  |
-| [`reinforcement_learning/`](reinforcement_learning/) | **Reinforcement Learning**          | Q-Learning, SARSA, DQN          |
+| [`reinforcement_learning/`](reinforcement_learning/) | Reinforcement Learning              | Q-Learning, SARSA, DQN          |
+| [`minesweeper/`](minesweeper/)                    | **RL auf Minesweeper** (interaktiv)    | Deep-Q-Network (CNN)            |
 
 ## Schnellstart
 

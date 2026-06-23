@@ -1,0 +1,7 @@
+# RL-Workshop: Minesweeper mit Deep-Q-Network
+numpy
+matplotlib
+tensorflow
+
+# Apple Silicon (M1/M2/M3) – optional für GPU-Beschleunigung:
+# pip install tensorflow-macos tensorflow-metal
