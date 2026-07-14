@@ -1,0 +1,10 @@
+# Workshop 02 · Überwachtes Lernen: Churn-Vorhersage (scikit-learn)
+numpy
+pandas
+scikit-learn
+matplotlib
+seaborn
+joblib
+
+# Optional: nur für die Interpretierbarkeit mit --explain (SHAP)
+# pip install shap

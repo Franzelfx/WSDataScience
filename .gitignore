@@ -14,6 +14,9 @@ saved_model/
 *.keras
 *.h5
 
+# Generierter synthetischer Churn-Datensatz (Workshop 02)
+workshops/02_supervised_ml/data/telco_churn.csv
+
 # macOS
 .DS_Store
 

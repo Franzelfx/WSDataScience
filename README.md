@@ -13,10 +13,11 @@ Empfohlene Reihenfolge – die Workshops bauen didaktisch aufeinander auf:
 | # | Workshop | Thema | Methode |
 |---|----------|-------|---------|
 | 01 | [Explorative Datenanalyse](workshops/01_explorative_datenanalyse/) | Daten verstehen & visualisieren | pandas, matplotlib, seaborn |
-| 02 | [Bildklassifikation](workshops/02_bildklassifikation/) | Bilder klassifizieren | CNN (TensorFlow/Keras) |
-| 03 | [Autoencoder](workshops/03_autoencoder/) | Unüberwachtes Lernen / Anomalien | Autoencoder (TensorFlow/Keras) |
-| 04 | [Reinforcement Learning](workshops/04_reinforcement_learning/) | Lernen durch Belohnung | Q-Learning, SARSA, DQN |
-| 05 | [RL auf Minesweeper](workshops/05_minesweeper/) | RL angewandt (interaktiv) | Deep-Q-Network (CNN) |
+| 02 | [Überwachtes Lernen: Churn](workshops/02_supervised_ml/) | Vorhersage auf Tabellendaten | scikit-learn (LogReg, RF, Gradient Boosting) |
+| 03 | [Bildklassifikation](workshops/03_bildklassifikation/) | Bilder klassifizieren | CNN (TensorFlow/Keras) |
+| 04 | [Autoencoder](workshops/04_autoencoder/) | Unüberwachtes Lernen / Anomalien | Autoencoder (TensorFlow/Keras) |
+| 05 | [Reinforcement Learning](workshops/05_reinforcement_learning/) | Lernen durch Belohnung | Q-Learning, SARSA, DQN |
+| 06 | [RL auf Minesweeper](workshops/06_minesweeper/) | RL angewandt (interaktiv) | Deep-Q-Network (CNN) |
 
 ---
 
@@ -44,7 +45,7 @@ in `aufgabe/` die `# TODO`-Lücken füllen → mit `loesung/` vergleichen.
 Jeder Workshop ist eigenständig. Beispiel Reinforcement Learning:
 
 ```bash
-cd workshops/04_reinforcement_learning
+cd workshops/05_reinforcement_learning
 pip install -r requirements.txt
 
 # Eigene Umsetzung (nach dem Füllen der TODOs)

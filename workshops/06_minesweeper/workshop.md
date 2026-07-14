@@ -14,7 +14,7 @@ Du durchläufst den kompletten Deep-RL-Workflow:
 3. **Training** – Lernen durch Experience Replay & Target-Netzwerk
 4. **Validierung** – **interaktiver Viewer** mit Buttons: *Weiter*, *Zurück*, *Neues Spiel*
 
-> Dieser Workshop baut auf dem [Reinforcement-Learning-Workshop](../04_reinforcement_learning/)
+> Dieser Workshop baut auf dem [Reinforcement-Learning-Workshop](../05_reinforcement_learning/)
 > auf. Dort lernst du die Grundlagen (Q-Learning, SARSA, einfaches DQN auf CartPole) –
 > hier wendest du **Deep RL** auf ein deutlich anspruchsvolleres Problem an.
 
@@ -255,5 +255,5 @@ Q-Werte (ROWS × COLS)  ──►  Action-Masking (nur verdeckte Zellen)  ──
 ## Referenzen
 
 - [DeepMind: Human-level control through deep RL (DQN-Paper)](https://www.nature.com/articles/nature14236)
-- [Reinforcement-Learning-Grundlagen-Workshop](../04_reinforcement_learning/)
+- [Reinforcement-Learning-Grundlagen-Workshop](../05_reinforcement_learning/)
 - [matplotlib Widgets (Button)](https://matplotlib.org/stable/api/widgets_api.html)
