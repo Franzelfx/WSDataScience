@@ -1,0 +1,6 @@
+# Workshop 03 · Autoencoder (Unüberwachtes Lernen / Anomalien)
+numpy
+pandas
+matplotlib
+scikit-learn
+tensorflow

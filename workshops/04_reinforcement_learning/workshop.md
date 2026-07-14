@@ -22,6 +22,22 @@ Reinforcement-Learning-Workflow:
 
 ---
 
+## Projektstruktur
+
+| Pfad | Inhalt |
+|------|--------|
+| `aufgabe/workshop_reinforcement_learning.py` | **Starter-Code** mit TODO-Lücken – hier programmierst du. |
+| `loesung/workshop_reinforcement_learning.py` | **Musterlösung** – zum Vergleichen und Nachschlagen. |
+| `requirements.txt` | Abhängigkeiten (numpy, matplotlib; optional gymnasium + tensorflow) |
+
+**So arbeitest du:** Öffne `aufgabe/workshop_reinforcement_learning.py` und fülle die mit
+`# TODO (Aufgabe X)` markierten Lücken aus (siehe Abschnitt
+[Programmier-Aufgaben](#programmier-aufgaben-todos-im-starter-code)). Das restliche
+Gerüst (CONFIG, GridWorld-Umgebung, Trainings-Loop, Plotting) ist bereits fertig.
+Wenn du nicht weiterkommst, schau in `loesung/`.
+
+---
+
 ## Lernziele
 
 - Den Unterschied zwischen **überwachtem Lernen** (Labels) und **Reinforcement Learning** (Reward-Signal) verstehen
@@ -79,6 +95,10 @@ Der Schritt-Reward von **−1** motiviert den Agenten, **möglichst kurze Wege**
 ---
 
 ## Ausführen
+
+> Die folgenden Befehle rufst du im jeweiligen Ordner auf – `aufgabe/`, sobald du die
+> TODOs implementiert hast, oder `loesung/` für die fertige Musterlösung, z. B.:
+> `python aufgabe/workshop_reinforcement_learning.py --train`
 
 ### Agent trainieren (Standard: Q-Learning)
 
@@ -144,31 +164,53 @@ Im `CONFIG`-Block am Anfang des Skripts findest du alle Parameter gesammelt.
 
 ---
 
-## Aufgaben
+## Programmier-Aufgaben (TODOs im Starter-Code)
 
-### Aufgabe 1: Baseline trainieren
+Diese Lücken füllst du in `aufgabe/workshop_reinforcement_learning.py` aus. Jede ist im
+Code klar mit `# TODO (Aufgabe X)` markiert und enthält direkt den passenden Hinweis/Formel.
+Erst wenn diese TODOs implementiert sind, lässt sich das Skript ausführen.
+
+| # | Ort im Code | Was zu tun ist |
+|---|-------------|----------------|
+| **Aufgabe 1** | `TabularAgent.select_action` | **Epsilon-greedy-Aktionswahl**: mit Wahrscheinlichkeit ε zufällig explorieren, sonst die beste Aktion laut Q-Tabelle wählen (bei Gleichstand zufällig). |
+| **Aufgabe 2** | `TabularAgent.update` | **TD-Update** für Q-Learning *und* SARSA: TD-Target bilden und `Q(s,a) ← Q(s,a) + α·[target − Q(s,a)]`. |
+| **Aufgabe 3** *(Bonus)* | `run_dqn.build_q_network` | **Q-Netzwerk** aufbauen (2× Dense(64, relu) + Dense(n_actions, linear), Adam + MSE). |
+| **Aufgabe 4** *(Bonus)* | `run_dqn` (Trainings-Loop) | **DQN-TD-Target**: `r + γ·maxₐ' Q_target(s',a')·(1 − done)` für die gewählte Aktion setzen. |
+
+**Die zentralen Formeln:**
+
+- **Q-Learning (off-policy):**  `Q(s,a) ← Q(s,a) + α·[ r + γ·maxₐ' Q(s',a') − Q(s,a) ]`
+- **SARSA (on-policy):**         `Q(s,a) ← Q(s,a) + α·[ r + γ·Q(s',a')      − Q(s,a) ]`
+
+---
+
+## Experimente
+
+Sobald der Code läuft, kannst du mit den Hyperparametern experimentieren.
+
+### Experiment 1: Baseline trainieren
 Starte das Skript mit Standard-Einstellungen (`--train --evaluate --render`) und notiere:
 - Nach wie vielen Episoden steigt die Erfolgsrate(50) deutlich an?
 - Welchen durchschnittlichen Reward erreicht die finale greedy-Policy?
 - Sieht die in `plots/policy_values.png` gezeigte Policy sinnvoll aus (kürzester Weg um die Fallen)?
 
-### Aufgabe 2: Exploration vs. Exploitation
+### Experiment 2: Exploration vs. Exploitation
 Der Agent muss früh **explorieren** (Neues ausprobieren) und später **exploitieren** (Gelerntes nutzen).
 - Setze `EPSILON_DECAY = 0.999` (langsamer Decay) – wie verändert sich die Lernkurve?
 - Setze `EPSILON_MIN = 0.0` und `EPSILON_DECAY = 0.95` (schneller Decay) – wird der Agent zu früh „gierig"?
 - Schau dir `plots/epsilon_decay.png` an und verknüpfe den Verlauf mit der Lernkurve.
 
-### Aufgabe 3: Lernrate & Discount
+### Experiment 3: Lernrate & Discount
 - Vergleiche `ALPHA = 0.01` vs. `ALPHA = 0.5` – was passiert mit Stabilität und Tempo?
 - Vergleiche `GAMMA = 0.8` vs. `GAMMA = 0.99` – plant der Agent kurzfristiger oder langfristiger?
 - Beobachte jeweils die State-Value-Heatmap: Wie „weit" strahlt der Wert vom Ziel aus?
 
-### Aufgabe 4: Q-Learning vs. SARSA
+### Experiment 4: Q-Learning vs. SARSA
 Trainiere denselben Aufbau einmal mit `--algo q_learning` und einmal mit `--algo sarsa`.
 - Vergleiche die gelernten Policies in der Nähe der Falle.
 - **Hypothese:** SARSA (on-policy) verhält sich oft „vorsichtiger" in der Nähe von Fallen, weil es das eigene Explorationsverhalten mitlernt. Bestätigt sich das?
 
-### Aufgabe 5: Eigene Welt bauen
+### Experiment 5: Eigene Welt bauen
 Verändere im `CONFIG`-Block `GRID_ROWS`, `GRID_COLS`, `OBSTACLES`, `TRAPS`, `START`, `GOAL`.
 - Baue ein Labyrinth mit einer „Abkürzung", die an einer Falle vorbeiführt.
 - Schafft es der Agent, den riskanten kurzen Weg gegen den sicheren langen Weg abzuwägen?

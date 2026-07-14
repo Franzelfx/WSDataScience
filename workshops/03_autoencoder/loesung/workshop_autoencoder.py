@@ -13,6 +13,10 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers, regularizers, callbacks
 
+# Pfad zur Fallback-CSV (robust relativ zu diesem Skript, funktioniert auch
+# aus dem loesung/-Unterordner heraus).
+FALLBACK_CSV = os.path.join(os.path.dirname(__file__), "..", "data", "iris_fallback.csv")
+
 # =========================
 # HYPERPARAMETER-KONFIG
 # =========================
@@ -56,11 +60,15 @@ def load_dataset(path: str | None) -> pd.DataFrame:
     if path and os.path.exists(path):
         print(f"[INFO] Lade Datensatz aus: {path}")
         df = pd.read_csv(path)
+    elif os.path.exists(FALLBACK_CSV):
+        print(f"[INFO] Kein/ungültiger Pfad. Verwende Iris-Fallback aus: {FALLBACK_CSV}")
+        df = pd.read_csv(FALLBACK_CSV)
     else:
-        print("[INFO] Kein/ungültiger Pfad. Verwende Iris-Fallback und speichere iris_fallback.csv")
+        print(f"[INFO] Kein Fallback gefunden. Erzeuge Iris-Datensatz und speichere: {FALLBACK_CSV}")
         iris = load_iris()
         df = pd.DataFrame(iris.data, columns=[c.replace(' (cm)', '') for c in iris.feature_names])
-        df.to_csv("iris_fallback.csv", index=False)
+        os.makedirs(os.path.dirname(FALLBACK_CSV), exist_ok=True)
+        df.to_csv(FALLBACK_CSV, index=False)
 
     df_num = df.select_dtypes(include=[np.number]).copy()
     before = len(df_num)

@@ -1,0 +1,5 @@
+# Workshop 01 – Explorative Datenanalyse (EDA)
+pandas
+matplotlib
+seaborn
+jupyter

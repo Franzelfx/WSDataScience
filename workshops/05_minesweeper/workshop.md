@@ -14,9 +14,16 @@ Du durchläufst den kompletten Deep-RL-Workflow:
 3. **Training** – Lernen durch Experience Replay & Target-Netzwerk
 4. **Validierung** – **interaktiver Viewer** mit Buttons: *Weiter*, *Zurück*, *Neues Spiel*
 
-> Dieser Workshop baut auf dem [Reinforcement-Learning-Workshop](../reinforcement_learning/)
+> Dieser Workshop baut auf dem [Reinforcement-Learning-Workshop](../04_reinforcement_learning/)
 > auf. Dort lernst du die Grundlagen (Q-Learning, SARSA, einfaches DQN auf CartPole) –
 > hier wendest du **Deep RL** auf ein deutlich anspruchsvolleres Problem an.
+
+> **Aufbau des Ordners:** Der Starter-Code mit Lücken liegt in
+> [`aufgabe/workshop_minesweeper.py`](aufgabe/workshop_minesweeper.py), die
+> vollständige Musterlösung in
+> [`loesung/workshop_minesweeper.py`](loesung/workshop_minesweeper.py).
+> Fülle zuerst die drei **Programmier-Aufgaben** (siehe unten) in der
+> `aufgabe/`-Version aus – erst danach lässt sich trainieren.
 
 ---
 
@@ -65,7 +72,7 @@ pip install -r requirements.txt        # numpy, matplotlib, tensorflow
 ### Trainieren
 
 ```bash
-cd minesweeper
+cd loesung        # fertige Musterlösung  (oder: cd aufgabe, sobald die TODOs gefüllt sind)
 
 # Standard-Training (6x6, 6 Minen) – Modell wird gespeichert
 python workshop_minesweeper.py --train
@@ -125,30 +132,63 @@ Alle Parameter stehen im `CONFIG`-Block am Anfang des Skripts.
 
 ---
 
-## Aufgaben
+## Programmier-Aufgaben (Lücken füllen)
 
-### Aufgabe 1: Baseline trainieren
+In [`aufgabe/workshop_minesweeper.py`](aufgabe/workshop_minesweeper.py) sind die drei
+didaktisch zentralen Stellen als `TODO` markiert. Fülle sie aus – jede blockiert
+mit `raise NotImplementedError`, bis sie gelöst ist. Zum Abgleich dient
+[`loesung/workshop_minesweeper.py`](loesung/workshop_minesweeper.py).
+
+### Aufgabe 1: Zustands-Kodierung (`encode`)
+Kodiere die Spielfeld-Sicht als **One-Hot über 10 Kanäle** (Kanal 0 = verdeckt,
+Kanäle 1–9 = Zahlen 0–8). Das ist der Eingang des CNN.
+- Warum One-Hot statt der rohen Zahlen −1…8 als ein einzelner Kanal?
+- Welche Form hat der resultierende Tensor?
+
+### Aufgabe 2: CNN-Architektur (`DQNAgent._build`)
+Baue das **voll-faltende Q-Netz**: mehrere `Conv2D`-Blöcke mit `padding="same"`,
+abgeschlossen durch eine `Conv2D(1, 1)` und `Flatten` → **ein Q-Wert pro Zelle**.
+- Warum erhält `padding="same"` die Spielfeldgröße?
+- Wieso liefert die `1×1`-Faltung genau `ROWS×COLS` Ausgänge?
+
+### Aufgabe 3: DQN-Trainingsschritt (`DQNAgent.replay`)
+Implementiere das **TD-Target** mit dem Target-Netz, das **Action-Masking** der
+Folgezustände und den Gradientenschritt (`train_on_batch`).
+- Warum wird der Zukunftsterm bei `done == 1` weggelassen?
+- Welche Rolle spielt das separate **Target-Netz** für die Stabilität?
+
+> Ist alles gefüllt, `python -m py_compile aufgabe/workshop_minesweeper.py` prüft die
+> Syntax; danach `cd aufgabe && python workshop_minesweeper.py --train`.
+
+---
+
+## Experimente & Vertiefung
+
+Diese Experimente laufen mit dem **fertigen** Code (deine gefüllte `aufgabe/` oder
+die `loesung/`). Sie verändern nur Hyperparameter, keinen Code.
+
+### Experiment 1: Baseline trainieren
 Starte `--train` mit den Standardwerten und beobachte `plots/training_minesweeper.png`.
 - Steigt die **Siegrate** über die Episoden?
 - Ab wann „stagniert" das Lernen?
 
-### Aufgabe 2: Agent beim Spielen zusehen
+### Experiment 2: Agent beim Spielen zusehen
 Führe `--play` aus und schalte mit **Weiter ▶** durch mehrere Partien.
 - Deckt der Agent zuerst sinnvoll in der Fläche auf?
 - Erkennt er, dass Zellen neben hohen Zahlen riskanter sind?
 - Notiere eine Situation, in der er aus deiner Sicht einen **Fehler** macht.
 
-### Aufgabe 3: Schwierigkeit variieren
+### Experiment 3: Schwierigkeit variieren
 Trainiere mit `--mines 4` und mit `--mines 10` (gleiche Feldgröße).
 - Wie verändert sich die erreichbare Siegrate?
 - Warum ist Minesweeper bei hoher Minendichte teils **nicht gewinnbar** (Raten nötig)?
 
-### Aufgabe 4: Reward Shaping
+### Experiment 4: Reward Shaping
 Setze `R_MINE = -10` (im `CONFIG`) und trainiere erneut.
 - Wird der Agent „vorsichtiger"?
 - Vergleiche Siegrate und durchschnittliche Anzahl aufgedeckter Zellen.
 
-### Aufgabe 5: Netzarchitektur
+### Experiment 5: Netzarchitektur
 Reduziere `CONV_FILTERS` auf `[32, 32]` bzw. erhöhe auf `[128, 128, 128]`.
 - Was passiert mit Trainingsdauer und Siegrate?
 - Lohnt sich das größere Netz auf einem kleinen Feld?
@@ -215,5 +255,5 @@ Q-Werte (ROWS × COLS)  ──►  Action-Masking (nur verdeckte Zellen)  ──
 ## Referenzen
 
 - [DeepMind: Human-level control through deep RL (DQN-Paper)](https://www.nature.com/articles/nature14236)
-- [Reinforcement-Learning-Grundlagen-Workshop](../reinforcement_learning/)
+- [Reinforcement-Learning-Grundlagen-Workshop](../04_reinforcement_learning/)
 - [matplotlib Widgets (Button)](https://matplotlib.org/stable/api/widgets_api.html)

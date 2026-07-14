@@ -1,0 +1,9 @@
+# Workshop 02 · Bildklassifikation (CNN)
+numpy
+matplotlib
+scikit-learn
+tensorflow
+
+# Hinweis: Auf Apple Silicon (M1/M2/M3) statt `tensorflow` ggf.:
+#   pip install tensorflow-macos tensorflow-metal
+# Pillow wird von tensorflow/keras für das Laden eigener Bilder mitgebracht.

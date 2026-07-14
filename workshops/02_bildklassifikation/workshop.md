@@ -25,13 +25,30 @@ In diesem Workshop trainierst du ein **Convolutional Neural Network (CNN)** zur 
 
 ---
 
+## Aufbau des Workshops
+
+Dieser Ordner ist so aufgebaut:
+
+| Pfad | Inhalt |
+|------|--------|
+| [`workshop.md`](workshop.md) | Dieses Dokument – Anleitung & Erklärung |
+| [`aufgabe/`](aufgabe/) | Starter-Code mit TODO-Lücken zum Selbstausfüllen |
+| [`loesung/`](loesung/) | Vollständige Musterlösung |
+| [`requirements.txt`](requirements.txt) | Abhängigkeiten |
+
+Beginne mit `aufgabe/workshop_image_classification.py` und fülle die markierten
+TODO-Lücken aus (siehe [Implementierungs-Aufgaben](#implementierungs-aufgaben)).
+Bei Bedarf kannst du in der Musterlösung nachschauen.
+
+---
+
 ## Voraussetzungen
 
 - **Python 3.10+** (empfohlen)
-- Folgende Pakete installieren:
+- Abhängigkeiten installieren:
 
 ```bash
-pip install tensorflow scikit-learn matplotlib numpy
+pip install -r requirements.txt
 ```
 
 > **Hinweis:** TensorFlow installiert Keras automatisch mit. Auf Apple Silicon (M1/M2/M3) wird `tensorflow-macos` und `tensorflow-metal` empfohlen.
@@ -67,40 +84,42 @@ mein_datensatz/
 
 Aufruf mit eigenem Datensatz:
 ```bash
-python workshop_image_classification.py --train --data-dir ./mein_datensatz/
+python aufgabe/workshop_image_classification.py --train --data-dir ./mein_datensatz/
 ```
 
 ---
 
 ## Ausführen
 
+> Ersetze `aufgabe/` durch `loesung/`, um die fertige Musterlösung zu starten.
+
 ### Modell trainieren
 
 ```bash
 # Standard (CIFAR-10, Standardparameter)
-python workshop_image_classification.py --train
+python aufgabe/workshop_image_classification.py --train
 
 # Mit angepassten Hyperparametern
-python workshop_image_classification.py --train --epochs 50 --batch-size 128 --learning-rate 0.0005
+python aufgabe/workshop_image_classification.py --train --epochs 50 --batch-size 128 --learning-rate 0.0005
 
 # Mit eigenem Datensatz
-python workshop_image_classification.py --train --data-dir ./mein_datensatz/
+python aufgabe/workshop_image_classification.py --train --data-dir ./mein_datensatz/
 ```
 
 ### Vorhersage durchführen
 
 ```bash
 # Zufälliges CIFAR-10-Testbild vorhersagen
-python workshop_image_classification.py --predict
+python aufgabe/workshop_image_classification.py --predict
 
 # Eigenes Bild vorhersagen
-python workshop_image_classification.py --predict --image ./mein_foto.jpg
+python aufgabe/workshop_image_classification.py --predict --image ./mein_foto.jpg
 ```
 
 ### Training + Vorhersage kombiniert
 
 ```bash
-python workshop_image_classification.py --train --predict
+python aufgabe/workshop_image_classification.py --train --predict
 ```
 
 ---
@@ -156,7 +175,29 @@ Im `CONFIG`-Block am Anfang des Skripts findest du alle Hyperparameter gesammelt
 
 ---
 
-## Aufgaben
+## Implementierungs-Aufgaben
+
+Im Starter-Code unter [`aufgabe/`](aufgabe/) sind die didaktisch zentralen Stellen
+durch klar markierte `# TODO`-Blöcke ersetzt. Fülle sie in dieser Reihenfolge aus –
+erst dann läuft das Skript durch. Zur Kontrolle dient die Musterlösung in
+[`loesung/`](loesung/).
+
+| # | Funktion | Was zu implementieren ist |
+|---|----------|---------------------------|
+| **Aufgabe 1** | `build_augmentation_pipeline` | Augmentation-Schichten je nach CONFIG-Schalter (`RandomFlip`, `RandomRotation`, `RandomZoom`, `RandomContrast`) an `aug_layers` anhängen |
+| **Aufgabe 2** | `build_cnn_model` | Convolutional-Blöcke: `Conv2D → (BatchNorm) → ReLU → MaxPooling2D` über `CONFIG["CONV_FILTERS"]` |
+| **Aufgabe 3** | `build_cnn_model` | Klassifikationskopf: `Dense → (BatchNorm) → ReLU → Dropout` sowie die Softmax-Ausgabeschicht |
+| **Aufgabe 4** | `build_cnn_model` | Modell kompilieren (Adam-Optimizer, `sparse_categorical_crossentropy`, `accuracy`) |
+
+**Tipp:** Alle Schichten stammen aus `tensorflow.keras.layers` und werden im
+Functional-API-Stil verkettet: `x = layers.XYZ(...)(x)`.
+
+Sobald die vier TODOs ausgefüllt sind, trainiere mit `--train` und arbeite dann die
+folgenden Experimentier-Aufgaben durch.
+
+---
+
+## Experimentier-Aufgaben
 
 ### Aufgabe 1: Baseline trainieren
 Starte das Skript mit den Standard-Einstellungen und notiere:
